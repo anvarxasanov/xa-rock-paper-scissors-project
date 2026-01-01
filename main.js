@@ -36,6 +36,9 @@ document.querySelector('.js-scissors').addEventListener('click', () => {
     playGame('scissors');
 });
 
+
+
+
 document.body.addEventListener('keydown', (event) => {
     if (event.key === 'r') {
         playGame('rock');
