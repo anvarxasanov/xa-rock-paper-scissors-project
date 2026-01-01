@@ -39,7 +39,7 @@ document.querySelector('.js-scissors').addEventListener('click', () => {
 
 
 
-document.body.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', (event) => {
     if (event.key === 'r') {
         playGame('rock');
     } else if (event.key === 'p') {
@@ -48,7 +48,6 @@ document.body.addEventListener('keydown', (event) => {
         playGame('scissors');
     }
 });
-document.body.style.background = 'red';
 
 function playGame(playerMove) {
     const computerMove = pickComputerMove();
