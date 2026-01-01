@@ -48,6 +48,7 @@ document.body.addEventListener('keydown', (event) => {
         playGame('scissors');
     }
 });
+document.body.style.background = 'red';
 
 function playGame(playerMove) {
     const computerMove = pickComputerMove();
