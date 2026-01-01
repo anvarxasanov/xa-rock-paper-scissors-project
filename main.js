@@ -6,6 +6,36 @@ if (score === null) {
 
 updateScore();
 
+let isAutoPlaying = false;
+let intervalId;
+
+function autoPlay() {
+    const autoPlayBtn = document.querySelector('.auto-play-btn');
+
+    if (!isAutoPlaying) {
+        intervalId = setInterval(() => {
+            const playerMove = pickComputerMove();
+            playGame(playerMove);
+        }, 1200)
+        isAutoPlaying = true;
+        autoPlayBtn.innerText = 'Stop Playing';
+    } else {
+        clearInterval(intervalId);
+        isAutoPlaying = false;
+        autoPlayBtn.innerText = 'Auto Play';
+    }
+}
+
+document.querySelector('.js-rock').addEventListener('click', () => {
+    playGame('rock');
+});
+document.querySelector('.js-paper').addEventListener('click', () => {
+    playGame('paper');
+});
+document.querySelector('.js-scissors').addEventListener('click', () => {
+    playGame('scissors');
+});
+
 function playGame(playerMove) {
     const computerMove = pickComputerMove();
 
@@ -71,3 +101,17 @@ function pickComputerMove() {
 
     return computerMove;
 }
+
+document.querySelector('.js-reset').addEventListener('click', () => {
+    score.wins = 0;
+    score.losses = 0;
+    score.ties = 0;
+
+    localStorage.removeItem('score');
+
+    updateScore();
+});
+
+document.querySelector('.js-auto-play').addEventListener('click', () => {
+    autoPlay();
+});

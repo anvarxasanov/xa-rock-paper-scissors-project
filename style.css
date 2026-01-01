@@ -33,7 +33,7 @@ img {
     height: 50px;
 }
 
-.reset-btn {
+.reset-btn, .auto-play-btn {
     padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
