@@ -39,13 +39,19 @@ document.querySelector('.js-scissors').addEventListener('click', () => {
 
 
 
-document.addEventListener('keydown', (event) => {
-    if (event.key === 'r') {
+document.body.addEventListener('keydown', (event) => {
+    let keyPressed = event.key.toLowerCase();
+    if (keyPressed === 'r') {
         playGame('rock');
-    } else if (event.key === 'p') {
+    } else if (keyPressed === 'p') {
         playGame('paper');
-    } else if (event.key === 's') {
+    } else if (keyPressed === 's') {
         playGame('scissors');
+    } else if (keyPressed === 'backspace') {
+        //resetScore();
+        showResetConfirmation();
+    } else if (keyPressed === 'a') {
+        autoPlay();
     }
 });
 
@@ -115,7 +121,34 @@ function pickComputerMove() {
     return computerMove;
 }
 
-document.querySelector('.js-reset').addEventListener('click', () => {
+function showResetConfirmation() {
+    document.querySelector('.js-reset-confirmation')
+        .innerHTML = `
+      Are you sure you want to reset the score?
+      <button class="js-reset-confirm-yes reset-confirm-button">
+        Yes
+      </button>
+      <button class="js-reset-confirm-no reset-confirm-button">
+        No
+      </button>
+    `;
+
+    document.querySelector('.js-reset-confirm-yes')
+        .addEventListener('click', () => {
+            resetScore();
+            hideResetConfirmation();
+        });
+
+    document.querySelector('.js-reset-confirm-no')
+        .addEventListener('click', () => hideResetConfirmation());
+}
+
+function hideResetConfirmation() {
+    document.querySelector('.js-reset-confirmation')
+        .innerHTML = '';
+};
+
+function resetScore() {
     score.wins = 0;
     score.losses = 0;
     score.ties = 0;
@@ -123,8 +156,8 @@ document.querySelector('.js-reset').addEventListener('click', () => {
     localStorage.removeItem('score');
 
     updateScore();
-});
+}
 
-document.querySelector('.js-auto-play').addEventListener('click', () => {
-    autoPlay();
-});
+document.querySelector('.js-reset').addEventListener('click', () => showResetConfirmation());
+
+document.querySelector('.js-auto-play').addEventListener('click', () => autoPlay());
